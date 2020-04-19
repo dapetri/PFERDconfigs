@@ -1,1 +1,16 @@
+.DS_Store
 
+# PFERD
+cookie_jar
+.tmp
+
+# venv
+bin
+include
+lib
+pyvenv.cfg
+
+#courses
+swt1
+db
+rn
