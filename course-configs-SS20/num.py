@@ -12,7 +12,7 @@ PFERD.enable_logging()
 base_dir = get_base_dir(__file__)
 
 
-def swt1_filter(path):
+def course_filter(path):
     # Tutorien rausfiltern
     if path.parts[:1] == ("Tutorien",):
         if path.parts[1:] == ():
@@ -24,29 +24,19 @@ def swt1_filter(path):
     return True
 
 
-def swt1_transform(path):
-    # Übungen
-    new_path = move(path, ("Übungen",), ("ue",))
-    if new_path is not None:
-        return new_path
-
-    # Tutorien
-    new_path = move(path, ("Tutorien",), ("tut",))
-    if new_path is not None:
-        return new_path
-
+def course_transform(path):
     # Altklausuren
-    new_path = move(path, ("Klausuren",), ("ak",))
+    new_path = move(path, ("Altklausuren",), ("ak",))
     if new_path is not None:
         return new_path
 
-    # Vorlesung
-    new_path = move(path, ("Vorlesungsmaterial",), ("vl",))
+    # Übungsblätter
+    new_path = move(path, ("Übungsblätter",), ("ue",))
     if new_path is not None:
         return new_path
+
 
 # Main part of the config
-
 
 def main(args):
     args = [arg.lower() for arg in args]
@@ -54,8 +44,8 @@ def main(args):
     ilias = PFERD.Ilias(base_dir, "cookie_jar")
 
     if not args in args:
-        ilias.synchronize("1096553", "swt1",
-                          transform=swt1_transform, filter=swt1_filter)
+        ilias.synchronize("1083036", "num",
+                          transform=course_transform, filter=course_filter)
 
 
 if __name__ == "__main__":
